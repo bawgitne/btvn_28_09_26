@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thông Báo Lỗi</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="auth-page">
+<div class="auth-card" style="text-align: center;">
+    <div style="font-size: 3rem; margin-bottom: 10px;">⚠️</div>
+    <h1 style="color: var(--danger);">Có lỗi xảy ra</h1>
+    <p style="color: #64748b; margin: 15px 0 25px;" th:text="${message != null ? message : 'Bạn không có quyền truy cập hoặc trang không tồn tại.'}">
+        Đã có lỗi xảy ra.
+    </p>
+    <a class="button full" th:href="@{/}">Về Trang Chủ</a>
+</div>
+</body>
+</html>

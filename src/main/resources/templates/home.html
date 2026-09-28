@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+<main class="container" layout:fragment="content">
+    <div style="margin-bottom: 25px;">
+        <h1 style="font-size: 2rem; font-weight: 800; color: #1e293b;">Bảng Điều Khiển (Dashboard)</h1>
+        <p style="color: #64748b;">Hệ thống quản lý Shop bán hàng trực tuyến IOTSTAR SHOP</p>
+    </div>
+
+    <!-- Thông báo nếu có -->
+    <div th:if="${success}" class="alert success" th:text="${success}"></div>
+    <div th:if="${error}" class="alert error" th:text="${error}"></div>
+
+    <!-- Thông tin xin chào khi đăng nhập -->
+    <div sec:authorize="isAuthenticated()" class="card" style="margin-bottom: 25px; border-left: 4px solid var(--primary);">
+        <p style="font-size: 1.1rem;">
+            Xin chào, <strong style="color: var(--primary);" th:text="${#authentication.principal.fullName}">User</strong>!
+            Bạn đang đăng nhập với quyền:
+            <span class="user-role-badge" th:text="${#authentication.principal.role}">ROLE_USER</span>
+        </p>
+    </div>
+
+    <!-- Thống kê tổng quan -->
+    <div class="cards">
+        <div class="card">
+            <h3>Tổng số người dùng</h3>
+            <strong th:text="${userCount}">0</strong>
+        </div>
+        <div class="card">
+            <h3>Tổng số sản phẩm</h3>
+            <strong th:text="${productCount}">0</strong>
+        </div>
+    </div>
+
+    <!-- Phím tắt quản lý nhanh -->
+    <div style="margin-top: 30px; display: flex; gap: 15px; flex-wrap: wrap;">
+        <a class="button" th:href="@{/products}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path></svg>
+            Quản lý Sản Phẩm
+        </a>
+        <a class="button secondary"
+           sec:authorize="hasRole('ADMIN')"
+           th:href="@{/users}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+            Quản lý Users (Admin)
+        </a>
+    </div>
+</main>
+</body>
+</html>
